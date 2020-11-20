@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>12.this补充</title>
+    <script>
+        //创建一个name变量
+        var name = "全局";
+        //创建一个fun()函数
+        function fun() {
+            //没有this，一直找的都是全局作用域的this变量
+            //console.log(name)
+            //this，取决于调用它的对象，这样设计可以更加灵活，方法中不是写死的一个属性
+            console.log(this.name)
+        };
+
+        //创建2个对象
+        var obj = {
+            name: "孙悟空",
+            sayName: fun
+        };
+        var obj2 = {
+            name: "沙和尚",
+            sayName: fun
+        };
+        //我们希望调用obj.sayName()时，可以输出obj的名字
+        obj.sayName();
+    </script>
+</head>
+<body>
+
+</body>
+</html>
