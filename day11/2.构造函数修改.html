@@ -24,22 +24,27 @@
             //     alert("hello 大家好，我是" + this.name);
             // }
             //引用全局作用域的方法，创建多少次，都是同一个了，但是也有它的问题
-            this.sayName = fun;
+            //this.sayName = fun;
         }
 
         /**
          * 将函数定义在了全局作用域中，污染了全局作用域的命名空间
          *  而且定义在全局作用域中，也很不安全，很可能被同名覆盖
          */
-        function fun() {
+        // function fun() {
+        //     alert("hello 大家好，我是" + this.name);
+        // }
+
+        //向原型中，添加sayName方法，就不会污染到全局作用域了
+        Person.prototype.sayName = function () {
             alert("hello 大家好，我是" + this.name);
         }
 
         //创建一个Person实例
         var per = new Person("孙悟空", 18, "男");
         var per2 = new Person("猪八戒", 28, "男");
-        // per.sayName();
-        // per2.sayName();
+        per.sayName();
+        per2.sayName();
 
         //他们是2个对象
         console.log(per.sayName == per2.sayName)
