@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09.数组的4个方法</title>
+    <script>
+        /**
+         * 创建一个数组，下面的4个方法，新增元素的方法的返回值都是新的数组长度，而删除的方法，返回值都是被删除的元素
+         */
+        var arr = ["孙悟空", "猪八戒", "沙和尚"];
+        /**
+         * push()
+         *  - 该方法可以向数组末尾添加1个或多个元素，并返回数组的新的长度
+         *  - 可以将要添加的元素作为方法的参数传递
+         *      这样这些元素将会自动添加数组的末尾
+         *  - 该方法会将数组的新长度作为返回值返回
+         */
+        var result = arr.push("唐僧", "蜘蛛精", "白骨精", "玉兔精");
+        console.log(arr);
+        console.log("result = " + result);
+
+        /**
+         * pop()
+         *  - 该方法可以删除数组的最后一个元素，并将被删除的元素作为返回值返回
+         */
+        result = arr.pop();
+        console.log(arr);
+        console.log("result = " + result);
+
+        /**
+         * unshift()
+         *  - 向数组的开头添加一个或多个元素，并返回新的数组长度
+         *  - 向前边插入元素后，其他元素的索引会依次调整
+         */
+        console.log(arr);
+        result = arr.unshift("牛魔王", "二郎神");
+        console.log(arr);
+        console.log("result = " + result);
+
+        /**
+         * shift()
+         *  - 可以删除数组的第一个元素，并将被删除的元素作为返回值返回
+         */
+        result = arr.shift();
+
+        console.log(arr);
+        console.log("result = " + result);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
