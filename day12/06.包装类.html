@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06.包装类</title>
+    <script>
+        /**
+         * 基本数据类型
+         *  string number boolean null undefined
+         * 引用数据类型
+         *  Object
+         *
+         *  在JS中，为我们提供了3个包装类，通过这3个包装类，可以将基本数据类型转换为对象
+         *      String()
+         *          - 可以将基本数据类型的字符串，转换为String对象
+         *      Number()
+         *          - 可以将基本数据类型的数字，转换为Number对象
+         *      Boolean()
+         *          - 可以将基本数据类型的布尔值，转换为Boolean对象
+         *      但是注意，我们在实际应用中，不会使用基本数据类型的对象
+         *          如果使用j基本数据类型，在进行比较时，可能会带来一些不可预期的结果
+         */
+
+        var a = 123;
+        //number
+        console.log(typeof a);
+
+        //创建一个Number类型对象
+        var num = new Number(3);
+        var num2 = new Number(3);
+        var str = new String("hello");
+        var bool = new Boolean(true);
+
+        //无论true，还是false，在if里面都是true，因为对象转换为boolean数据类型都是true
+        var b = new Boolean(false);
+
+        //向num中，添加属性
+        num.hello = "abcdefg";
+        console.log(num.hello);
+        //对象比较，即使内容一样，也是比较不同
+        console.log(num === num2);
+
+        //无论true，还是false，在if里面都是true，因为对象转换为boolean数据类型都是true
+        // if (b) {
+        //     alert("我运行了...");
+        // }
+
+        /**
+         * 方法和属性只能添加给对象，不能添加给数据类型
+         *  当我们对一些基本数据类型的值去调用属性和方法时
+         *      浏览器会临时使用包装类将其转换为对象，然后再调用对象的属性和方法
+         *      调用完以后，再将其转换为基本数据类型
+         */
+        var s = 123;
+        //转换为Number包装类，调用toString，得到转换后的字符串，再转为基本数据类型
+        s = s.toString();
+        //给基本数据类型添加属性，先转为String包装类，添加hello属性，就销毁了
+        s.hello = "你好";
+        //此时再获取hello属性时，因为是基本数据类型，又需要转换为String对象，但此时转换对象是一个新对象了，和上一步的对象不是同一个
+        //所以hello属性也不存在了，所以会输出undefined
+        console.log(s.hello);
+
+        console.log(s);
+        console.log(typeof s);
+
+        console.log(typeof num);
+        console.log(typeof str);
+        console.log(typeof bool);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
