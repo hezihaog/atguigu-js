@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01.数组的剩余方法</title>
+    <script>
+        var arr = ["孙悟空", "猪八戒", "沙和尚"];
+        var arr2 = ["白骨精", "玉兔精", "蜘蛛精"];
+        var arr3 = ["二郎神", "太上老君", "玉皇大帝"];
+
+        /**
+         * concat()可以连接2个或多个数组，并将新的数组返回
+         *  - 该方法不会对原数组产生影响
+         */
+            //除了可以传数组，还以传元素，都会合并到一起
+        var result = arr.concat(arr2, arr3, "牛魔王", "铁扇公主");
+        console.log(result);
+
+        /**
+         * join()
+         *  - 该方法可以将数组转换为字符串
+         *  - 该方法不会对原数组产生影响，而是将转换后的字符串作为结果返回
+         *  - 在join()中可以指定一个字符串作为参数，这个字符串将会作为数组中元素的连接符
+         *  - 如果不指定连接符，则默认使用,逗号作为连接符
+         */
+        arr = ["孙悟空", "猪八戒", "沙和尚", "唐僧"];
+        //指定-作为连接符进行连接
+        result = arr.join("-");
+        console.log(result);
+        //结果为字符串类型
+        console.log(typeof result);
+
+        /**
+         * reverse()
+         *  - 该方法用来反转数组
+         *  - 该方法会直接修改原数组！
+         */
+        arr.reverse();
+        console.log(arr);
+
+        arr = ["b", "d", "e", "a", "e"];
+        /**
+         * sort()
+         *  - 可以用来对数组中的元素进行排序
+         *  - 也会影响原数组！默认会按照unicode编码进行排序
+         */
+        arr.sort();
+        console.log(arr);
+
+        /**
+         * 即使对于纯数字数组，使用sort()排序，也会按照unicode编码进行排序
+         *  所以对数字进行排序时，可能会得到错误的结果
+         * 我们可以自己来指定排序的规则
+         *  我们可以在sort()中，添加一个回调函数，来指定排序规则
+         *      回调函数需要定义2个形参
+         *      浏览器将会分别使用数组中的元素作为实参调用回调函数
+         *      使用哪个元素调用不确定，但是肯定是在数组中，a一定在b前边
+         *  - 浏览器会根据回调函数的返回值，来决定元素的顺序
+         *      如果返回一个大于0的值，则元素会交换位置
+         *      如果返回一个小于0的值，则元素位置不变
+         *      如果返回一个0，则认为2个元素相等，也不交换位置
+         *
+         *  - 如果需要升序排列，则返回a - b
+         *      如果需要降序排列，则返回b - a
+         */
+        arr = [5, 4, 2, 1, 3, 6, 8, 7];
+        arr.sort(function (a, b) {
+            //如果前边大，则交换位置，让从小到大排序
+            // if (a > b) {
+            //     return 1;
+            // } else if (a < b) {
+            //     //如果后边大，则不改变位置
+            //     return -1;
+            // } else {
+            //     //如果相等，也不改变位置
+            //     return 0;
+            // }
+
+            //想从大到小排序，则改变一下位置即可
+            // if (a > b) {
+            //     return -1;
+            // } else if (a < b) {
+            //     //如果后边大，则不改变位置
+            //     return 1;
+            // } else {
+            //     //如果相等，也不改变位置
+            //     return 0;
+            // }
+
+            //上面这么写有点麻烦，可以直接这么写
+            /**
+             * 升序排列
+             * 如果前边值大，则计算结果为正值
+             * 如果后边值大，则计算结果为负值
+             * 如果一样大，则计算结果为0
+             */
+            //return a - b;
+
+            /**
+             * 降序排列
+             */
+            return b - a;
+        });
+        console.log(arr);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
