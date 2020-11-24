@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07.文档的加载</title>
+    <script>
+        /**
+         * 浏览器在加载页面时，是按照自上向下的顺序加载
+         *  读取到一行就运行一行，如果将script标签写到页面的上边
+         *  在代码执行时，页面还没有加载，页面也没有加载DOM对象，会导致无法获取到DOM对象
+         *  解决方案
+         *      1.将script标签写在下边，就是为了页面加载以后再执行JS代码
+         *      2.通过添加onload事件响应函数，再回调中执行DOM操作
+         */
+
+        /**
+         * onload事件会在整个页面加载完成之后才触发
+         * 为window绑定onload事件
+         *      该事件对应的响应函数将会在页面加载完成之后执行
+         *      这样可以确保我们的JS代码执行时，所有的DOM对象已经加载完毕了
+         */
+        window.onload = function () {
+            //获取id为btn的按钮
+            var btn = document.getElementById("btn");
+            console.log(btn);
+            //为按钮绑定一个单击响应函数
+            btn.onclick = function () {
+                alert("hello");
+            }
+        };
+    </script>
+</head>
+<body>
+<button id="btn">点我一下</button>
+</body>
+</html>
