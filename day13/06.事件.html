@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06.事件</title>
+</head>
+<body>
+<!--
+    我们可以在事件对应的属性中，设置一些JS代码
+        这样当事件被触发时，这些代码将会执行
+
+    这种写法，我们称为结构和行为耦合，不方便维护，不推荐使用
+ -->
+<!--<button id="btn" onclick="alert('讨厌，你点我干嘛！')">我是一个按钮</button>-->
+<button id="btn">我是一个按钮</button>
+<script>
+    /**
+     * 事件，就是用户和浏览器之间的交互行为
+     *  比如：点击按钮，鼠标移动，关闭窗口，等等
+     */
+
+    /**
+     * 为按钮的对应事件，绑定处理函数的形式来响应事件
+     *  这样当事件被触发时，其对应的函数将会被调用
+     */
+    //获取按钮对象
+    var btn = document.getElementById("btn");
+    console.log(btn);
+    //像这种为单击事件绑定的函数，我们称为单击响应函数
+    btn.onclick = function () {
+        alert("你还点！");
+    }
+</script>
+</body>
+</html>
