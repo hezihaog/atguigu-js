@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09.练习</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #outer {
+            width: 500px;
+            height: 333px;
+            margin: 50px auto;
+            /* 设置文本居中 */
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            /**
+             * 点击按钮，切换图片
+             */
+                //获取2个按钮
+            var prev = document.getElementById("prev");
+            var next = document.getElementById("next");
+
+            /**
+             * 要切换图片，就是要修改img标签的src属性
+             */
+                //获取img标签元素
+            var img = document.getElementsByTagName("img")[0];
+            //创建一个数组，用来保存图片的路径
+            var imgArr = ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"];
+            //创建一个变量，保存当前正在显示的图片的索引
+            var index = 0;
+
+            //设置提示文字
+            //获取id为info的p元素
+            var info = document.getElementById("info");
+            info.innerHTML = "一共 " + imgArr.length + " 张图片，当前第 " + (index + 1) + " 张";
+
+            //分别为2个按钮，绑定点击事件
+            prev.onclick = function () {
+                /**
+                 * 切换上一张图片，index自减
+                 */
+                index--;
+                //判断index是否钱满，是切换到最后一张
+                if (index < 0) {
+                    index = imgArr.length - 1;
+                }
+                img.src = imgArr[index];
+                //点击按钮后，更新提示文字
+                info.innerHTML = "一共 " + imgArr.length + " 张图片，当前第 " + (index + 1) + " 张";
+            };
+            next.onclick = function () {
+                /**
+                 * 切换下一张图片，index自增
+                 */
+                index++;
+                //判断index是否到了最后，是则切换到第一张
+                if (index > (imgArr.length - 1)) {
+                    index = 0;
+                }
+                //切花图片就是修改img的src属性
+                //要修改一个元素的属性，格式：元素.属性 = 属性值
+                img.src = imgArr[index];
+                //点击按钮后，更新提示文字
+                info.innerHTML = "一共 " + imgArr.length + " 张图片，当前第 " + (index + 1) + " 张";
+            };
+        };
+    </script>
+</head>
+<body>
+<div id="outer">
+    <p id="info"></p>
+    <img src="img/1.jpg" alt="冰棍">
+    <button id="prev">上一张</button>
+    <button id="next">下一张</button>
+</div>
+</body>
+</html>
