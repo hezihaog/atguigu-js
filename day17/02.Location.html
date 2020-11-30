@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02.Location</title>
+    <script>
+        /**
+         * Location
+         *  - 该对象中，封装了浏览器地址栏的信息
+         */
+        window.onload = function () {
+            //获取按钮对象
+            var btn = document.getElementById("btn");
+            btn.onclick = function () {
+                /**
+                 * 如果直接打印location，则可以获取地址栏的信息（当前页面的完整的路径）
+                 */
+                //alert(location);
+
+                /**
+                 * 如果直接将location属性修改为一个完整的路径，或相对路径
+                 *  则页面会自动跳转到该路径，并且会生成相应的历史记录
+                 */
+                //location = "http://www.baidu.com";
+                //location = "01.BOM.html";
+
+                /**
+                 * assign()
+                 *  - 用来跳转到其他页面，作用和直接修改location对象一样
+                 */
+                //location.assign("http://www.baidu.com");
+
+                /**
+                 * reload()
+                 *  - 用于重新加载当前页面，作用和刷新按钮一样
+                 *  - 如果在方法中，传递一个true，则会强制清空缓存刷新页面
+                 */
+                //location.reload(true);
+
+                /**
+                 * replace()
+                 *  - 可以使用一个新的页面替换当前页面，调用完毕，也会跳转页面
+                 *      不会生成历史记录，不能使用回退按钮进行回调！（assign()是会生成历史记录，是可以回退的！）
+                 */
+                location.replace("01.BOM.html");
+            };
+        };
+    </script>
+</head>
+<body>
+<button id="btn">点我一下</button>
+<h1>Location</h1>
+<input type="text">
+<a href="01.BOM.html">去BOM</a>
+</body>
+</html>
