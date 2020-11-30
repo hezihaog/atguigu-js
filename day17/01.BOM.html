@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01.BOM</title>
+    <script>
+        /**
+         * BOM
+         *  - 浏览器对象模型
+         *  - BOM可以使我们通过JS来操作浏览器
+         *  - 在BOM中为我们提供了一组对象，用来完成对浏览器的操作
+         *  - BOM对象
+         *      Window
+         *          - 代表的是我们浏览器的窗口，同时Window也是网页中的全局对象
+         *      Navigator
+         *          - 代表的是当前浏览器的信息，通过该对象可以来识别不同的浏览器
+         *      Location
+         *          - 代表的是当前浏览器的地址栏信息，通过Location获取获取地址栏信息，或者操作浏览器跳转页面
+         *      History
+         *          - 代表的是浏览器的历史记录，可以通过该对象来操作浏览器的历史记录
+         *              由于隐私的原因，该对象不能获取到具体的历史记录，只能操作浏览器向前或向后翻页
+         *              而且该操作只在当次访问时有效
+         *      Screen
+         *          - 代表的是用户屏幕的信息，通过该对象可以获取到用户的显示器的相关信息
+         *
+         *      这些BOM对象，在浏览器中都是作为window对象的属性保存的
+         *          可以通过window对象来使用，也可以直接使用
+         */
+        console.log(navigator);
+        console.log(location);
+        console.log(history);
+
+        /**
+         * Navigator
+         *    - 代表的是当前浏览器的信息，通过该对象可以来识别不同的浏览器
+         *    - 由于历史原因，Navigator对象的大部分属性，都已经不能帮助我们识别浏览器了
+         *    - 一般我们只会使用 userAgent 来判断浏览器信息
+         *      userAgent是一个字符串，这个字符串中包含有用来描述浏览器信息的内容
+     *          不同的浏览器会有不同的userAgent
+         * 火狐的userAgent：
+         *      Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:83.0) Gecko/20100101 Firefox/83.0
+         *
+         *  Chrome的userAgent：
+         *      Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36
+         *
+         *  IE8：
+         *      Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)
+         *
+         *  IE9：
+         *      Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+         *
+         *  IE10：
+         *      Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)
+         *
+         *  IE11：
+         *      Mozilla/5.0 (Windows NT 6.3; Win64, x64; Trident/7.0; rv:11.0) like Gecko
+         *
+         *  - 在IE11中，已经将微软和IE相关的标识都已经去除了，所以我们基本不能通过 UserAgent 来识别一个浏览器是否是IE了！
+         */
+        console.log(navigator.appName);
+        console.log(navigator.userAgent);
+
+        var ua = navigator.userAgent;
+        if (/firefox/i.test(ua)) {
+            alert("你是火狐");
+        } else if (/chrome/i.test(ua)){
+            alert("你是Chrome");
+        } else if (/msie/i.test(ua)) {
+            alert("你是IE");
+        } else if ("ActiveXObject" in window) {
+            alert("你是IE11");
+        }
+
+        /**
+         * 如果通过 UserAgent 不能判断，还可以通过一些浏览器中，特有的对象来判断浏览器信息
+         * 比如：ActiveXObject
+         */
+        if ("ActiveXObject" in window) {
+            alert("你是IE11，你还是逃不掉~~");
+        } else if(window.ActiveXObject) {
+            alert("你是IE，我已经抓住你了！");
+        } else {
+            alert("你不是IE");
+        }
+
+        //将对象转为布尔值，非空时转为true，空时转为false，但是IE11做了手脚，这个会返回false
+        //所以IE11上，非空判断ActiveXObject，不管用了！
+        alert(!!window.ActiveXObject);
+
+        //还有这招，判断window中有没有ActiveXObject属性
+        alert("ActiveXObject" in window);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
