@@ -59,10 +59,19 @@
                 //滚动条偏移量st，要加给top，让相对的圆点为同一个
                 box1.style.top = top + st + "px";
             };
+
+            //box2也设置鼠标移动事件，并取消冒泡，就可以让方块进入不了box2的区域
+            var box2 = document.getElementById("box2");
+            box2.onmousemove = function (event) {
+                event = event || window.event;
+                //取消冒泡
+                event.cancelBubble = true;
+            }
         };
     </script>
 </head>
 <body style="height: 1000px;width: 2000px">
+<div id="box2" style="width: 500px;height: 500px;background-color: #bfa;"></div>
 <div id="box1"></div>
 </body>
 </html>
