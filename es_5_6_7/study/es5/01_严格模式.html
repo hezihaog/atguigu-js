@@ -1,8 +1,8 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>01_严格模式</title>
+    <meta charset="UTF-8">
+    <title>01_严格模式</title>
 </head>
 <body>
 <!--
@@ -19,12 +19,43 @@
 4. 语法和行为改变
 	* 必须用var声明变量
 	* 禁止自定义的函数中的this指向window
-	* 创建eval作用域
+	* 创建 eval 作用域
 	* 对象不能有重名的属性
 -->
 
 <script type="text/javascript">
+    //开启严格模式
+    'use strict';
 
+    //必须使用var声明变量，否则报错
+    //username = 'kobe';
+    var username = 'kobe';
+    console.log(username);
+
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    //自调用，没有通过new关键字，调用构造方法，导致构造方法内的this指向了window，污染了全局变量
+    //开启严格模式后，禁止自定义函数的this指向window，所以导致自调用会报错，必须加上new关键字
+    new Person('kebe', 39);
+
+    var str = 'NBA';
+    //不开启严格模式，可以再eval函数中，再定义str
+    //如果开启严格模式后，eval函数中定义的变量，有自己的作用域，不会污染全局变量
+    eval('var str = "CBA"; alert(str)');
+    //这时再打印str，发现str被eval函数中重新str覆盖了（因为eval函数中的变量没有作用域，会在全局中声明，导致有安全隐患）
+    //如果这个str是后端接口获取的，只要有人拦截接口请求，将str换为攻击性的JS代码，就可能让服务器瘫痪了
+    alert(str);
+
+    //不开启严格模式之前，对象的属性可以重名，浏览器不会报错，会直接覆盖声明
+    //注意IDEA编辑器会报错，但浏览器不报错！
+    var obj = {
+        username: 'kobe123',
+        //username: 'wade'
+    };
+    console.log(obj.username)
 </script>
 
 </body>
