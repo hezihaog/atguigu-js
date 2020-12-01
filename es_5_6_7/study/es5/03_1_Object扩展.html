@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>03_Object扩展</title>
+    <meta charset="UTF-8">
+    <title>03_Object扩展</title>
 </head>
 <body>
 <!--
@@ -21,8 +21,73 @@ ES5给Object扩展了一些静态方法, 常用的2个:
    * 存取器属性：setter,getter一个用来存值，一个用来取值
 -->
 <script type="text/javascript">
-  
+    //1、Object.create(prototype, [descriptors])
+    var obj = {
+        username: 'damu',
+        age: 30
+    };
+    var obj1 = {};
+    console.log(obj1);
+    //以obj为原型，放置到obj1的__proto__上，相当于继承
+    obj1 = Object.create(obj, {
+        //第二个参数可以添加一些拓展属性，例如set，它的值是一个对象，用来描述这个属性
+        //对象中的value属性值，就是该新增拓展属性的值
+        sex: {
+            //该拓展属性的值
+            value: '男',
+            //writable属性，代表该拓展属性是否可写，默认为false
+            writable: true,
+            //configurable属性，代表该拓展属性是否可删除，默认为false
+            configurable: true,
+            //enumerable属性，代表该拓展属性是否可以在for in 枚举中，枚举到该属性，默认为false
+            enumerable: true
+        }
+    });
+    console.log(obj1);
+    //打印一些新增的拓展属性sex
+    console.log(obj1.sex);
+    //修改拓展属性sex，发现无法修改，要想修改，必须在描述拓展属性时，添加writable属性，设置为true，才可以修改，否则会失败，并且不会报错！
+    obj1.sex = '女';
+    console.log(obj1);
+    //删除新增的拓展属性sex，发现无法删除，想要删除，必须在描述拓展属性时，将configurable属性设置为true，才可以删除，否则会失败，并且不会报错！
+    //delete obj1.sex;
+    console.log(obj1);
 
+    //枚举obj1中的属性，发现无法枚举到新拓展的属性sex，想要枚举到，必须再描述拓展属性时，将enumerable属性设置为true，才可以枚举到
+    for (var i in obj1) {
+        console.log(i);
+    }
+
+    //2、Object.defineProperties(object, descriptors)
+    var obj2 = {
+        firstName: 'kobe',
+        lastName: 'bryant'
+    };
+    //Object.defineProperties()，给指定对象拓展多个属性
+    Object.defineProperties(obj2, {
+        //第二个参数传一个对象，里面使用key-value定义拓展属性，注意key是拓展属性名称，value是一个对象（描述器）
+        fullName: {
+            //定义获取拓展属性的值的get()方法，fullName属性，全名的值为firstName加上lastName
+            get: function () {//获取拓展属性的值，获取拓展属性值，get方法自动调用
+                console.log('get()被调用');
+                return this.firstName + ' ' + this.lastName
+            },
+            set: function (data) {//监听拓展属性，当拓展属性发生变化时，会自动调用，并将变化的值作为实参传递进该函数
+                console.log('set() => ', data);
+                //按空格分拆字符串，赋值给firstName和lastName，下次再获取该拓展属性时，就可以获取到新的值了
+                var names = data.split(' ');
+                this.firstName = names[0];
+                this.lastName = names[1];
+            }
+        }
+    });
+    //定义打印时，fullName拓展属性显示为(...)，点击它时，get()方法会被调用，再显示出拓展属性值，该特性叫惰性求职
+    console.log(obj2);
+    //打印拓展属性
+    console.log(obj2.fullName);
+    //修改拓展属性
+    obj2.fullName = 'tim duncan';
+    console.log(obj2.fullName);
 </script>
 </body>
 </html>
