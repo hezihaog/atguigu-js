@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>03_变量的解构赋值</title>
+    <meta charset="UTF-8">
+    <title>03_变量的解构赋值</title>
 </head>
 <body>
 <!--
@@ -16,8 +16,35 @@
   * 给多个形参赋值
 -->
 <script type="text/javascript">
+    let obj = {
+        username: 'kobe',
+        age: 39
+    };
+    //ES5之前，单独获取
+    //let username = obj.username;
+    //let age = obj.age;
 
+    //ES6，提供了对象解构赋值，解构按照变量名从对象中取值，所以必须一样
+    let {username, age} = obj;
+    console.log(username, age);
 
+    //数组解构，按照角标顺序进行取值
+    let arr = [1, 3, 5, 'abc', true];
+    //按顺序取
+    //let [a, b, c, d, e] = arr;
+    //console.log(a, b, c, d, e);
+    //只要前2个值
+    //let [a, b] = arr;
+    //跳过前面2个值，开始取
+    let [, , a, b] = arr;
+    console.log(a, b);
+
+    //方法参数中，使用解构，只要传入的对象中有username和age属性，就可以自动赋值到参数中
+    function foo({username, age}) {//相当于 {username, age} = obj
+        console.log(username, age);
+    }
+
+    foo(obj);
 </script>
 </body>
 </html>
