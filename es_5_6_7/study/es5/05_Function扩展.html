@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>05_Function扩展</title>
+    <meta charset="UTF-8">
+    <title>05_Function扩展</title>
 </head>
 <body>
 <!--
@@ -14,8 +14,45 @@
   * bind()是将函数返回
 -->
 <script type="text/javascript">
+    var obj = {
+        username: 'kobe'
+    };
 
+    function foo(data) {
+        console.log(this, data);
+    }
 
+    //直接调用，this是window
+    foo();
+    /**
+     * call()和apply()的区别
+     *  传参上有区别：
+     *    call是从第二个参数开始，依次传入
+     *    apply是第二个参数必须是数组，传入的数据放入数组里
+     */
+    //使用call()，将foo方法的this绑定为obj
+    foo.call(obj, 33);
+    //也可以使用apply()，效果是一样的
+    foo.apply(obj, [33]);
+
+    /**
+     * bind()的特点
+     *  - 绑定完this，不会立即调用当前函数，而是将函数返回
+     *  - 传参的方式，同call一样，在指定要绑定this的对象后面，依次传递
+     *  - bind()一般用于指定回调函数的this
+     */
+    var bar = foo.bind(obj);
+    console.log(bar);
+    //这时，直接调用这个函数，this不是window，而是我们通过bind()传入的obj
+    bar(33);
+    //一般会这么写，obj后面传参，并调用
+    foo.bind(obj, 33)();
+
+    //指定定时器中回调函数的this，就可以通过bind来指定，因为bind()不会立即调用回调函数，而是将函数返回
+    //如果是call()和apply()就办不到了，因为它们是立即执行回调函数的
+    setInterval(function () {
+        console.log(this);
+    }.bind(obj), 1000);
 </script>
 </body>
 </html>
