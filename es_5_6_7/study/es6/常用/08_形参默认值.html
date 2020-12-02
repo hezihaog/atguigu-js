@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>08_形参默认值</title>
+    <meta charset="UTF-8">
+    <title>08_形参默认值</title>
 </head>
 <body>
 <!--
@@ -13,9 +13,19 @@
     }
 -->
 <script type="text/javascript">
+    //定义一个点的坐标的构造函数
+    //x,y设置默认值，如果不传的话，x和y的值默认是原点的值0,0
+    function Point(x = 0, y = 0) {
+        this.x = x;
+        this.y = y;
+    }
 
+    let point = new Point(23, 35);
+    console.log(point);
 
+    //如果不传x,y，则使用默认参数
+    let point1 = new Point();
+    console.log(point1);
 </script>
-
 </body>
 </html>
