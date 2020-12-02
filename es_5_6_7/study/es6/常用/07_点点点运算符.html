@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>07_3点运算符</title>
+    <meta charset="UTF-8">
+    <title>07_3点运算符</title>
 </head>
 <body>
 <!--
@@ -26,9 +26,35 @@
   arr2.push(...arr1);
 -->
 <script type="text/javascript">
+    //三点运算符，只能是最后的部分形参可变长，例如这里，三点之前有一个a参数，value数组会收集除了第一个参数外，保存其他参数到数组中
+    //并且三点运算符只能放到最后一个参数的位置！
+    function foo(a, ...value) {
+        console.log(arguments);
 
+        //arguments的callee属性，就是函数本身
+        //arguments.callee();
 
+        //arguments是一个伪数组，不能使用forEach进行遍历
+        // arguments.forEach(function (item, index) {
+        //     console.log(item, index);
+        // });
+
+        //如果是使用三点运算符，会将传入的参数放到一个真实数组中，就可以使用forEach进行遍历了
+        console.log(value);
+        value.forEach(function (item, index) {
+            console.log(item, index);
+        });
+    }
+
+    foo(2, 65, 33, 44);
+
+    let arr = [1, 6];
+    let arr1 = [2, 3, 4, 5];
+    //将arr1的元素插入到arr数组中的1和6之间的位置
+    arr = [1, ...arr1, 6];
+    console.log(arr);
+    //如果直接在输出位置使用三点运算符，会将数组arr的所有元素遍历出来
+    console.log(...arr);
 </script>
-
 </body>
 </html>
