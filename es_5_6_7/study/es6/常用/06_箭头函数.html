@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>06_箭头函数</title>
-
+    <meta charset="UTF-8">
+    <title>06_箭头函数</title>
 </head>
 <body>
-    <button id="btn1">测试箭头函数this_1</button>
-    <button id="btn2">测试箭头函数this_2</button>
-
+<button id="btn1">测试箭头函数this_1</button>
+<button id="btn2">测试箭头函数this_2</button>
 
 <!--
 * 作用: 定义匿名函数
@@ -28,8 +26,82 @@
         如果没有，则this是window。
 -->
 <script type="text/javascript">
+    // let fun = function () {
+    //   console.log('我是箭头函数');
+    // };
 
+    let fun = () => console.log('我是箭头函数');
+    fun();
+
+    //形参的情况
+    //1.没有形参的时候,()不能省略
+    let fun1 = () => console.log('我是箭头函数');
+    fun1();
+
+    //2.只有一个形参的时候，(a)可以省略2边的括号
+    //let fun2 = (a) => console.log(a);
+    let fun2 = a => console.log(a);
+    fun2('aaa');
+
+    //3.两个以及2个以上的形参的时候，()括号不能省略
+    let fun3 = (x, y) => console.log(x, y);
+    fun3(25, 36);
+
+    //函数体的情况
+    //1.函数体只有一条语句或表达式时，{}可以省略，会自动返回语句执行的结果或者是表达式的结果
+    // let fun4 = () => {
+    //     console.log('我是箭头函数')
+    // };
+    //let fun4 = () => console.log('我是箭头函数');
+    //let fun4 = (x, y) => x + y;
+
+    //加上{}大括号后，必须手动加上return，返回结果，否则默认返回值是undefined
+    let fun4 = (x, y) => {
+        return x + y
+    };
+    console.log(fun4(24, 36));
+
+    //2.函数体不止一条语句或者是表达式的情况，{}不可以省略
+    let fun5 = (x, y) => {
+        console.log(x, y);
+        return x + y;
+    };
+    console.log(fun5(35, 49));
+
+    //测试箭头函数的this
+    let btn1 = document.getElementById('btn1');
+    let btn2 = document.getElementById('btn2');
+
+    //常规方法，this是调用它的是谁，this就是谁，[object HTMLButtonElement]，所以这里this是button
+    btn1.onclick = function () {
+        alert(this);
+    };
+    //箭头函数，this取决于在定义的时候，处在哪里，this就是谁，这里定义在window中，所以this就是window
+    btn2.onclick = () => {
+        alert(this);
+    };
+
+    let obj = {
+        name: '箭头函数',
+        getName: function () {
+            //箭头函数的this，看外层有没有包一层函数，如果有，则this就是包着它的函数的this，否则就是window
+            //因为包着它的getName()函数时是普通方法，所以它的this取决于谁调用它，它的this就是谁，现在使用obj调用getName()
+            //所以这里的this，就是getName()的this，就是obj
+            btn2.onclick = () => {
+                console.log(this);
+            }
+        },
+        //如果是箭头函数的形式声明，它也没有this，而且没有一个包着它的函数，所以它的this是window
+        //而里面的onclick()箭头函数的this，先找外层的getName2()，因为它也是一个箭头函数，它也没有this，它就去找外层的函数
+        //发现没有函数包着它，所以this是window，因而里面的onclick()箭头函数的this也是window
+        getName2: () => {
+            btn2.onclick = () => {
+                console.log(this);
+            }
+        }
+    };
+    obj.getName();
+    //obj.getName2();
 </script>
-
 </body>
 </html>
