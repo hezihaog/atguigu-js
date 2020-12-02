@@ -71,7 +71,9 @@
                 method: 'GET',
                 url,//url: url，ES6中同名的属性可以省略，只写属性名即可
                 success: (data) => resolve(data),
-                error: (error) => reject(error)
+                //调用reject()，Promise的状态就是异常了，会导致下面的评论列表请求不了，我们应该友好一点，提示一个暂时没有新闻内容
+                //error: (error) => reject(error)
+                error: () => resolve(false)
             });
         });
     }
@@ -79,11 +81,21 @@
     async function sendXml() {
         //获取新闻内容
         let result = await getNews('http://localhost:3000/news?id=7');
+        //获取不到新闻内容，弹出提示
+        if (!result) {
+            alert('暂时没有新闻内容喔');
+            return;
+        }
         console.log(result);
-        //获取新闻的评论列表
+        //成功获取新闻内容，再获取新闻的评论列表
         result = await getNews('http://localhost:3000' + result.commentsUrl);
+        //获取不到评论列表，弹出提示
+        if (!result) {
+            alert('暂时没有新闻评论喔');
+        }
         console.log(result);
     }
+
     //发送请求
     sendXml();
 </script>
