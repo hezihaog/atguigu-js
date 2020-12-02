@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>02_数值扩展</title>
+    <meta charset="UTF-8">
+    <title>02_数值扩展</title>
 </head>
 <body>
 <!--
@@ -14,8 +14,29 @@
 6. Math.trunc(i) : 直接去除小数部分
 -->
 <script type="text/javascript">
+    //ob开头，二进制
+    console.log(0b101010);//10
+    //0o开拓，八进制
+    console.log(0o56);//46
 
+    //Number.isFinite()，判断指定的数是否是有限大的数
+    console.log(Number.isFinite(123));//true
+    //false，，Infinity为无限大
+    console.log(Number.isFinite(Infinity));
 
+    //Number.isNaN()，判断指定的数是否是Nan
+    console.log(Number.isNaN(NaN));//true
+
+    //Number.isInteger()，判断指定的数是否是整数
+    console.log(Number.isInteger(123.12));//false，浮点数
+    console.log(Number.isInteger(123.0));//true，即使有小数点，但是为0，也是整数
+
+    //Number.parseInt()，将字符串转为对应的数值
+    console.log(Number.parseInt('123abc123'));//123
+    console.log(Number.parseInt('a123abc123'));//NaN
+
+    //Math.trunc()，将指定的数去除小数部分
+    console.log(Math.trunc(123.123));//123
 </script>
 </body>
 </html>

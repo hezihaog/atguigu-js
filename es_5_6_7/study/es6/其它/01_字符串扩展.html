@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>01_字符串扩展</title>
+    <meta charset="UTF-8">
+    <title>01_字符串扩展</title>
 </head>
 <body>
 <!--
@@ -12,8 +12,18 @@
 4. repeat(count) : 重复指定次数
 -->
 <script type="text/javascript">
+    let str = 'abafiarubfiuragbf';
+    //includes，判断字符串是否有包含指定的字符串
+    console.log(str.includes('t'));
+    console.log(str.includes('a'));
+    //startsWith，判断字符串是否以指定的字符串开头
+    console.log(str.startsWith('a'));
+    //endsWith，判断字符串是否以指定的字符串结尾
+    console.log(str.endsWith('f'));
 
-
+    let str2 = 'ab';
+    //repeat，将字符串重复指定测试，repeat()方法中传入一个number类型的值，指定要重复多少次
+    console.log(str2.repeat(5));
 </script>
 </body>
 </html>
