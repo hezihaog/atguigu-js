@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>12_class</title>
+    <meta charset="UTF-8">
+    <title>12_class</title>
 </head>
 <body>
 </body>
@@ -15,6 +15,53 @@
 6. 重写从父类中继承的一般方法
 -->
 <script type="text/javascript">
+    //通过构造方法，定义一个类
+    // function Person(name, age) {
+    //     this.name = name;
+    //     this.age = age;
+    // }
+    //
+    // let person = new Person('kobe', 39);
+    // console.log(person);
 
+    //通过class关键字，定义一个类
+    class Person {
+        //constructor关键字，定义类的构造方法
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        //类的一般方法，必须使用对象方法的简写方式，就是省略function关键字
+        //showName:function  {
+        //类的一般方法，都会放在实例对象的原型上
+        showName() {
+            console.log(this.name, this.age);
+        }
+    }
+
+    let person = new Person('kobe', 39);
+    console.log(person);
+    person.showName();
+
+    /**
+     * 定义子类
+     */
+    class StarPerson extends Person {
+        constructor(name, age, salary) {
+            //super表示调用父类的构造方法
+            super(name, age);
+            this.salary = salary;
+        }
+
+        //父类方法重写
+        showName() {
+            console.log(this.name, this.age, this.salary);
+        }
+    }
+
+    let p1 = new StarPerson('wade', 36, 100000);
+    console.log(p1);
+    p1.showName();
 </script>
 </html>
