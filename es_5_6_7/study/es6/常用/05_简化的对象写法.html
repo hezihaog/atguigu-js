@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>05_简化的对象写法</title>
+    <meta charset="UTF-8">
+    <title>05_简化的对象写法</title>
 </head>
 <body>
 <!--
@@ -19,7 +19,30 @@
   };
 -->
 <script type="text/javascript">
+    let username = 'kobe';
+    let age = 39;
 
+    //ES5，同名的属性都需要Key-Value方式书写
+    let obj = {
+        username: username,
+        age: age,
+        getName: function () {//ES5，对象的方法定义，需要有function关键字
+            return this.username;
+        }
+    };
+    console.log(obj);
+    console.log(obj.getName());
+
+    //ES6，同名属性可以只写属性名即可
+    let obj2 = {
+        username,
+        age,
+        getName() {//ES6中，可以省略函数的function关键字
+            return this.username;
+        }
+    };
+    console.log(obj2);
+    console.log(obj2.getName());
 </script>
 </body>
 </html>
