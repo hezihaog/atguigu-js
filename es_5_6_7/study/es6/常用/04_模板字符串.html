@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>04_模板字符串</title>
+    <meta charset="UTF-8">
+    <title>04_模板字符串</title>
 </head>
 <body>
 <!--
@@ -11,7 +11,17 @@
   * 变化的部分使用${xxx}定义
 -->
 <script type="text/javascript">
+    let obj = {
+        username: 'kobe',
+        age: 39
+    };
+    //ES5的拼串方式，效率低，而且容易拼错，要拼字符串的字符串很长时，很不好看
+    let str = '我的名字叫：' + obj.username + '，我今年的年龄是：' + obj.age;
+    console.log(str);
 
+    //ES6的模板字符串，简单又清晰
+    str = `我的名字叫：${obj.username}，我今年的年龄是：${obj.age}`;
+    console.log(str);
 </script>
 </body>
 </html>
