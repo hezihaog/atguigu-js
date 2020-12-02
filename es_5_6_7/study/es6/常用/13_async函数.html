@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>async函数</title>
+    <meta charset="UTF-8">
+    <title>async函数</title>
 </head>
 <body>
-
 <!--
   async函数(源自ES2017)
   概念： 真正意义上去解决异步回调的问题，同步流程表达异步操作
@@ -24,10 +23,69 @@
 -->
 <script type="text/javascript" src="./js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
+    //async基本使用
+    async function foo() {
+        return new Promise(resolve => {
+            // setTimeout(function () {
+            //   resolve();
+            // }, 2000);
+            //这里和上面是一样的，因为上面传的function执行时，也是调用了resolve函数，所以是一样的效果
+            setTimeout(resolve, 2000);
+        });
+    }
 
-    
+    async function test() {
+        console.log('开始执行', new Date().toTimeString());
+        await foo();
+        console.log('执行完毕...', new Date().toTimeString());
+    }
 
+    //test();
+
+    /**
+     * async里面的await返回值
+     */
+
+    //普通的函数，await的返回值就是普通函数的返回值
+    function test2() {
+        return 'xxx';
+    }
+
+    async function asyncPrint() {
+        //调用普通函数，返回值result就是该函数的返回值
+        //let result = await test2();
+        //如果调用的函数返回值是Promise，那么就是Promise的resolve()时，传入的值，如果不传就是undefined
+        let result = await Promise.resolve('promise');
+        console.log(result);
+        //如果Promise是reject状态，那么返回值是reject()时传入的值
+        result = await Promise.reject('失败了...');
+        console.log(result);
+    }
+
+    //asyncPrint();
+
+    //实例，获取新闻内容
+    async function getNews(url) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                method: 'GET',
+                url,//url: url，ES6中同名的属性可以省略，只写属性名即可
+                success: (data) => resolve(data),
+                error: (error) => reject(error)
+            });
+        });
+    }
+
+    async function sendXml() {
+        //获取新闻内容
+        let result = await getNews('http://localhost:3000/news?id=7');
+        console.log(result);
+        //获取新闻的评论列表
+        result = await getNews('http://localhost:3000' + result.commentsUrl);
+        console.log(result);
+    }
+    //发送请求
+    sendXml();
 </script>
-
 </body>
 </html>
