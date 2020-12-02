@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>11_Promise对象</title>
+    <meta charset="UTF-8">
+    <title>11_Promise对象</title>
 </head>
 <body>
 <!--
@@ -43,10 +43,74 @@
 -->
 
 <script type="text/javascript">
+    // //创建Promise对象
+    // let promise = new Promise((resolve, reject) => {
+    //     //初始化promise状态：pending，初始化状态
+    //     console.log('111');
+    //     //执行异步操作，通常是发送ajax请求，开启定时器，例如这里定时器2秒后执行回调函数
+    //     setTimeout(() => {
+    //         console.log('333');
+    //         //根据异步任务的返回结果，来去修改promise的状态
+    //         //如果异步任务执行成功，调用resolve，可以传结果参数到resolve()的参数中
+    //         resolve('哈哈');//自动修改promise的状态为 fullfilled：成功的状态
+    //
+    //         //异步任务执行失败，调用reject，可以将失败原因，传入到reject()的参数中
+    //         //reject('555');//修改promise的状态为 rejected 失败的状态
+    //     }, 2000);
+    // });
+    // console.log('222');
+    // promise.then((data) => {//成功的回调
+    //     console.log(data, '成功了');
+    // }, (error) => {//失败的回调
+    //     console.log(error, '失败了');
+    // });
 
+    /**
+     * 终端cd进入es_server文件夹，输入命令：node bin/www，开启服务端服务，提供新闻接口
+     */
+    //定义获取新闻的功能函数
+    function getNews(url) {
+        let promise = new Promise((resolve, reject) => {
+            //状态：初始化
+            //执行异步任务
+            //创建xmlHttp实例对象
+            let xmlHttp = new XMLHttpRequest();
+            //绑定监听器 readyState
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState === 4) {
+                    //请求成功
+                    if (xmlHttp.status === 200) {
+                        //修改状态
+                        resolve(xmlHttp.responseText);//修改promise状态为成功的状态
+                    } else {//请求失败
+                        reject('暂时没有新闻内容');
+                    }
+                }
+            };
+            //open 设置请求的方式，以及url
+            xmlHttp.open('GET', url);
+            //发送
+            xmlHttp.send();
+        });
+        return promise;
+    }
 
+    getNews('http://localhost:3000/news?id=2')
+        .then((data) => {
+            console.log(data);
+            //发送请求，获取评论内容，准备url
+            let commentsUrl = JSON.parse(data).commentsUrl;
+            let url = 'http://localhost:3000' + commentsUrl;
+            //发送获取新闻评论的请求，再调用getNews()，传递url，将返回结果的Promise返回即可串联
+            return getNews(url)
+        }, (error) => {
+            console.log(error);
+        })
+        .then((data) => {
+            console.log(data);
+        }, (error) => {
+            console.log(error);
+        });
 </script>
-
 </body>
-
 </html>
