@@ -1,5 +1,6 @@
 //将其他的模块汇集到主模块
 
+//导入uniq第三幅模块，一般都写在自定义模块的上面
 let uniq = require('uniq');
 
 let module1 = require('./modules/module1');
@@ -14,5 +15,6 @@ module2();
 module3.foo();
 module3.bar();
 
+//使用uniq第三方模块的去重（注意它默认会进行排序，但是是按照Unicode编码排序的，所以最后的11会排到前面去）
 let result = uniq(module3.arr);
 console.log(result);
