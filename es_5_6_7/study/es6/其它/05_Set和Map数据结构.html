@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>05_Set和Map数据结构</title>
+    <meta charset="UTF-8">
+    <title>05_Set和Map数据结构</title>
 </head>
 <body>
 <!--
@@ -24,11 +24,51 @@
   * clear()
   * size
 -->
-
 <script type="text/javascript">
+    //Set的构造方法传入一个数组，如果数组里面有重复元素，只会保留1个
+    let set = new Set([1, 2, 4, 5, 2, 3, 6]);
+    console.log(set);
 
+    //add()，添加一个元素
+    set.add(7);
+    //set.size属性，相当于数组的length属性，能获取到容器的长度
+    console.log(set.size, set);
 
+    //has()，判断容器中是否含有指定元素
+    console.log(set.has(8));//false
+    console.log(set.has(7));//true
+
+    //delete()，从容器中删除指定元素
+    set.delete(7);
+    console.log(set.size, set);
+
+    //clear()，清空容器
+    set.clear();
+    console.log(set);
+
+    console.log('---------------------');
+
+    //Map的构造方法传入一个二维数组，数组中的元素也是数组，而且这个数组只有2个元素，第一个是key，第二个是value
+    //即使数组中传了多个值，也只取前面2个
+    let map = new Map([['username', 'kobe'], ['age', 36]]);
+    console.log(map);
+    //map.size属性，获取键值对的个数
+    console.log(map.size);
+
+    //map.set()，给容器添加一对key-value数据
+    map.set('haha', 48);
+    console.log(map);
+
+    //map.delete()，从容器汇总删除指定key的元素
+    map.delete('age');
+    console.log(map);
+
+    //has()，判断容器中是否含有指定的key
+    console.log(map.has('username'));
+
+    //clear()，清空map容器
+    map.clear();
+    console.log(map);
 </script>
 </body>
-
 </html>
