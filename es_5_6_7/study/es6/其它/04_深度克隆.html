@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>对象的深度克隆</title>
+    <meta charset="UTF-8">
+    <title>对象的深度克隆</title>
 </head>
 <body>
-
-
 <!--
   1、数据类型：
     * 数据分为基本的数据类型(String, Number, boolean, Null, Undefined)和对象数据类型
@@ -32,7 +30,203 @@
         5). 深拷贝包含函数数据的对象/数组
 -->
 <script type="text/javascript">
+    // let str = 'abcd';
+    // let str2 = str;
+    // console.log(str2);
+    // //修改复制对象，不会影响源数据！
+    // str2 = '';
+    // console.log(str);//abcd
+    //
+    // let bool1 = true;
+    // let boo2 = bool1;
+    // boo2 = false;
+    // console.log(bool1);//true
+    //
+    // let obj = {
+    //     username: 'kobe',
+    //     age: 39
+    // };
+    // let obj1 = obj;
+    // console.log(obj1);
+    // //修改复制对象的username属性，会影响到源对象，因为对象的复制，只是复制了一份引用，而不会复制堆中的实例
+    // obj1.username = 'wade';
+    // console.log(obj);
+    // console.log(obj.username);//wade
+    //
+    // //复制数组/对象，没有生成新的对象，而是复制了一份引用
+    // let arr = [1, 4, {username: 'kobe', age: 39}];
+    // let arr2 = arr;
+    // //修改拷贝对象的内容，也会影响源对象中的内容
+    // arr2[0] = 'abcd';
+    // console.log(arr, arr2);
 
-</script> 
+    /**
+     * 拷贝数据：
+     *  基本数据类型：
+     *    拷贝后，会生成一份新的数据（不是复制引用），修改拷贝以后的数据，不会影响到源数据
+     *  对象/数组
+     *    拷贝后，不会生成新的数据，而是拷贝了一份引用，修改拷贝以后的数据，会影响到源数据
+     *  拷贝数据的方法：
+     *    1.直接赋值给一个变量 //浅拷贝（修改复制对象，会影响源对象的复制，就是浅拷贝）
+     *    2.Object.assign()，（ES6新增的对象拓展） //浅拷贝
+     *    3.Array.prototype.concat() //浅拷贝
+     *    4.Array.prototype.slice() //浅拷贝
+     *    5.JSON.parse(JSON.stringify())  //深拷贝（深度克隆），但拷贝的数据里，不能有函数！因为它处理不了
+     *  浅拷贝（对象/数组）：
+     *    特点：拷贝的是引用，修改拷贝以后的数据，会影响源数据，使得原数据不安全
+     *  深拷贝（深度克隆）
+     *    特点：拷贝的时候，生成新的数据（不是拷贝引用），修改拷贝以后的数据，不会影响源数据
+     */
+
+    let obj = {username: 'kobe'};
+    //Object.assign(obj)，复制一个对象obj2
+    let obj2 = Object.assign(obj);
+    console.log(obj2);
+    //修改了复制对象obj2的属性，再打印obj，发现影响了源数据，所以是浅拷贝
+    obj2.username = 'wade';
+    console.log(obj);
+
+    let arr = [1, 3, {username: 'kobe'}, function fun() {
+    }];
+    //arr.concat()，本来是用来将2个数组合并在一起
+    //let testArr = [2, 4];
+    //let arr2 = arr.concat(testArr);
+    //如果arr.concat()，不传参数，则复制了一份数据对象
+    let arr2 = arr.concat();
+    console.log(arr2);
+    //修改赋值对象的数据，修改基本数据类型不会影响源数组
+    arr2[1] = 'a';
+    //但是修改复制对象中元素的类型是对象的数据时，就影响了源数组，所以是浅拷贝
+    arr2[2].username = 'wade';
+    console.log(arr);
+
+    //arr.slice()，参数本来要传2个参数，分别为startIndex，endIndex，用来截取指定位置的子数组
+    //let arr3 = arr.slice(startIndex, endIndex);
+    //如果不传这2个参数，就相当于复制一个数组
+    let arr3 = arr.slice();
+    //此时，再修改复制的数组，修改的元素属性为对象时，也会影响到源数组，所以是浅拷贝
+    arr3[2].username = 'anverson';
+    console.log(arr);
+
+    console.log('----------------------');
+
+    //JSON.stringify()，将arr这个JS数组对象，转为json字符串
+    //再使用JSON.parse()，将这个json字符串转为一个JS对象
+    let arr4 = JSON.parse(JSON.stringify(arr));
+    console.log(arr4);
+    //这时，修改复制数组的对象类型的元素，发现不会修改到源数组中的数据，所以是深拷贝
+    //因为JSON.stringify()时，已经将对象转为字符串，而字符串是基本数据类型，而不是对象，再使用JSON.parse()时，操作的是字符串，而不是对象
+    //所以会复制一份数据，而不是拷贝引用！
+    //并且要注意，JSON.stringify()，传入的对象中的属性，不可以含有函数，如果有，则将这个函数的值设置为null
+    arr4[2].username = 'duncan';
+    console.log(arr, arr4);
+
+    /**
+     * 思考：
+     *  如何实现深度克隆（深拷贝）
+     *  拷贝的数据里有对象/数组
+     *  拷贝的数据不能有对象/数组
+     *    即使有对象/数组，我们还可以继续遍历对象/数组中的每一项值，一直到拿到的都是基本数据类型，再去复制，就是深度克隆了
+     */
+
+    /**
+     * 知识点储备
+     *  如何判断数据类型： arr -> Array，null -> Null
+     *  1.typeof返回的数据类型，String，Number，Boolean，Undefined，Object，Function
+     *  2.Object.prototype.toString.call(obj)，使用toString方法是因为没有人去修改它，使用call()是因为可以指定调用它的this，并且call()是立即执行
+     *  3.
+     */
+    let result = 'abcd';//[object String]
+    result = null;//[object Null]
+    result = [1, 3];//[object Array]
+    //返回的是字符串，[object xxx]
+    console.log(Object.prototype.toString.call(result));
+    //我们通过字符串的slice()方法截取字符串，获取类型的字符串，从8开始（[object ）
+    //后面的-1是因为slice()传负数可以从后面数，-1就是拿到最后一个字符串的位置，而slice()方法是包前不包后，所以忽略最后一个字符
+    console.log(Object.prototype.toString.call(result).slice(8, -1));
+
+    console.log('----------------');
+
+    //for in 循环 对象
+    obj = {username: 'kobe', age: 39};
+    //枚举对象时，遍历的是对象的属性名
+    for (let i in obj) {
+        console.log(i);
+        //获取属性名对应的属性值
+        console.log(obj[i]);
+    }
+
+    console.log('----------------');
+
+    arr = [1, 3, 'abc'];
+    //枚举数组时，遍历的是数组的下标
+    for (let i in arr) {
+        console.log(i);
+        //通过下标找元素
+        console.log(arr[i]);
+    }
+
+    console.log('----------------');
+
+    //定义一个检测数据类型的功能函数
+    function checkType(target) {
+        return Object.prototype.toString.call(target).slice(8, -1);
+    }
+
+    //Array
+    console.log(checkType(result));
+
+    //实现深度克隆 -> 针对对象和数组
+    function clone(target) {
+        //判断拷贝的数据类型
+        let result;
+        let targetType = checkType(target);
+        if (targetType === 'Object') {
+            //要拷贝的对象类型是对象，初始化拷贝结果为对象
+            result = {};
+        } else if (targetType === 'Array') {
+            //要拷贝的对象类型是数组，初始化拷贝结果为数组
+            result = [];
+        } else {
+            //其他数据类型是基本数据类型，则直接返回即可，因为基本数据类型没有深拷贝，都是浅拷贝
+            return target;
+        }
+        //遍历目标数据
+        for (let i in target) {
+            //获取遍历数据结构的每一项的值
+            //如果target是对象，则获取对象每一项属性的属性值
+            //如果target是数组，则获取数组每一项元素的值
+            let value = target[i];
+            //判断目标结构里的每一项值是否存在对象/数组
+            if (checkType(value) === 'Object' || checkType(value) === 'Array') {//对象/数组，又嵌套了对象/数组
+                //继续遍历获取到的value值（递归）
+                result[i] = clone(value);
+            } else {
+                //基本数据类型或者是函数，直接将数据塞到结果中
+                result[i] = value;
+            }
+        }
+        return result;
+    }
+
+    console.log('----------------');
+
+    //测试
+    arr3 = [1, 2, {username: 'kobe', age: 39}];
+    arr4 = clone(arr3);
+    console.log(arr4);
+    //修改复制数组的元素的属性，没有影响源数组，所以是深拷贝
+    arr4[2].username = 'wade';
+    console.log(arr3, arr4);
+
+    console.log('----------------');
+
+    let obj3 = {username: 'kobe', age: 39};
+    let obj4 = clone(obj3);
+    console.log(obj4);
+    //修改复制对象的属性，没有影响到源对象，所以是深拷贝
+    obj4.username = 'wade';
+    console.log(obj3, obj4);
+</script>
 </body>
 </html>
