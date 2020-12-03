@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>01_全局function模式</title>
+    <meta charset="UTF-8">
+    <title>01_全局function模式</title>
 </head>
 <body>
 <script type='text/javascript' src='module1.js'></script>
 <script type='text/javascript'>
-
+  foo();
+  bar();
+  //foo()和bar()函数中定义的msg变量，容易被不小心修改，再次调用foo()和bar()时就会受影响
+  msg = 'NBA';
+  foo();
 </script>
 </body>
 </html>

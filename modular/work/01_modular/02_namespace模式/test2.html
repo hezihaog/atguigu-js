@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>02_namespace模式</title>
+    <meta charset="UTF-8">
+    <title>02_namespace模式</title>
 </head>
 <body>
 <script type='text/javascript' src='module1.js'></script>
 <script type='text/javascript'>
-
+  //方法放在了对象里，的确可以防止方法被覆盖
+  obj.foo();
+  obj.bar();
+  //但是数据也放在了obj，而且可以被修改，不安全
+  obj.msg = 'NBA';
+  obj.foo();
+  obj.bar();
 </script>
 </body>
 </html>

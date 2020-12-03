@@ -4,8 +4,12 @@
  * 问题: 不安全(数据不是私有的, 外部可以直接修改)
  */
 
-
-
-
-
-
+let obj = {
+    msg: 'module2',
+    foo() {
+        console.log('foo()', this.msg);
+    },
+    bar() {
+        console.log('bar()', this.msg);
+    }
+};
