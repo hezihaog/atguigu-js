@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>06_for_of循环</title>
+    <meta charset="UTF-8">
+    <title>06_for_of循环</title>
 </head>
 <body>
-
 <!--
 for(let value of target){}循环遍历
   1. 遍历数组
@@ -14,16 +13,74 @@ for(let value of target){}循环遍历
   4. 遍历字符串
   5. 遍历伪数组
 -->
-
 <button>按钮1</button>
 <button>按钮2</button>
 <button>按钮3</button>
 
 <script type="text/javascript">
+    //将arr数组去重
+    let arr = [1, 2, 4, 5, 5, 6, 2];
+    //新建另外一个数组，将arr数据转移到arr1中
+    let arr1 = arr;
+    //将原数组清空掉
+    arr = [];
+    //利用Set集合，去重掉arr1中的重复元素
+    let set = new Set(arr1);
+    //for of 遍历set
+    for (let i of set) {
+        //将元素放回arr数组中
+        arr.push(i);
+    }
+    //打印，即可发现arr已经没有重复元素
+    console.log(arr);
 
+    console.log('---------- 遍历数组 ----------');
 
+    //for of 遍历数组
+    for (let i of arr) {
+        console.log(i);
+    }
 
+    console.log('---------- 遍历Set ----------');
+
+    //for of 遍历Set
+    let set1 = new Set([1, 2, 3, 4, 5]);
+    for (let i of set1) {
+        console.log(i);
+    }
+
+    console.log('---------- 遍历Map ----------');
+
+    //for of 遍历map
+    let map = new Map([['username', 'kobe'], ['age', 39]]);
+    for (let i of map) {
+        //i是数组
+        //console.log(Array.isArray(i));
+        console.log(`key：${i[0]}，value：${i[1]}`);
+    }
+
+    console.log('---------- 遍历字符串 ----------');
+
+    let str = 'abcdefg';
+    for (let i of str) {
+        console.log(i);
+    }
+
+    console.log('---------- 遍历arguments伪数组 ----------');
+
+    function fun(x, y) {
+        for (let i of arguments) {
+            console.log(i);
+        }
+    }
+
+    fun(1, 2);
+
+    console.log('---------- 遍历btn伪数组 ----------');
+    let btns = document.getElementsByTagName('button');
+    for (let i of btns) {
+        console.log(i);
+    }
 </script>
 </body>
-
 </html>
