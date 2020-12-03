@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>04_对象扩展</title>
+    <meta charset="UTF-8">
+    <title>04_对象扩展</title>
 </head>
 <body>
 <!--
@@ -16,9 +16,40 @@
 -->
 
 <script type="text/javascript">
+    //0和-0都是0，所以相等
+    console.log(0 == -0);//true
+    //NaN和任何值都不相等，包括它自己
+    console.log(NaN == NaN);//false
 
+    //Object.is()，底层使用字符串比较，所以0和-0的字符串不相等
+    console.log(Object.is(0, -0));//false
+    //2个字符串的NaN，是相等的
+    console.log(Object.is(NaN, NaN));//true
 
+    let obj = {};
+    let obj1 = {
+        username: 'anverson',
+        age: 42
+    };
+    let obj2 = {
+        sex: '男'
+    };
+    //Object.assign()，第一个参数是要拷贝到对象（目标对象），后面的可变参数是被拷贝属性的对象（源对象）
+    Object.assign(obj, obj1, obj2);
+    console.log(obj);
+
+    let obj3 = {};
+    let obj4 = {
+        qian: 5000000
+    };
+    //ES5中__proto__，只能读不能写，所以__proto__被称为隐式原型，我们一般通过对象的构造函数的prototype属性来设置原型（构造方法的prototype是可以操作的）
+    //而ES6中则直接提供了一个__proto__属性，可以进行操作
+    //obj4现在是obj3的原型，相当于继承了
+    obj3.__proto__ = obj4;
+    //打印obj3，虽然还是个空对象，因为本来就没有属性，但是它的__proto__已经是obj4了
+    console.log(obj3);
+    //所以obj3就拥有了obj4的属性，例如qian属性
+    console.log(obj3.qian);
 </script>
 </body>
-
 </html>
