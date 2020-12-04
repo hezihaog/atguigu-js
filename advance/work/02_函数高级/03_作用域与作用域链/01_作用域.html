@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>01_作用域</title>
+    <meta charset="UTF-8">
+    <title>01_作用域</title>
 </head>
 <body>
 <!--
@@ -17,7 +17,34 @@
   * 隔离变量，不同作用域下同名变量不会有冲突
 -->
 <script type="text/javascript">
+    //没块作用域
+    // if (true) {
+    //     var c = 3;
+    // }
+    // console.log(c);
 
+    var a = 10,
+        b = 20;
+
+    function fn(x) {
+        var a = 100,
+            c = 300;
+        //10 20 300 10
+        console.log('fn()', a, b, c, x);
+
+        function bar(x) {
+            var a = 1000,
+                d = 400;
+            console.log('bar()', a, b, c, d, x)
+        }
+
+        //1000 20 300 400 100
+        bar(100);
+        //1000 20 300 400 200
+        bar(200);
+    }
+
+    fn(10);
 </script>
 </body>
 </html>
