@@ -37,7 +37,24 @@
     fn.test2();
     console.log(fn.toString());
     console.log(fn.test3);//undefined
-    fn.test3();//Uncaught TypeError: fn.test3 is not a function
+    //fn.test3();//Uncaught TypeError: fn.test3 is not a function
+
+    /**
+     * 1.函数的显式原型指向的对象，默认是空的Object实例对象（但是Object不满足）
+     */
+    console.log(Fn.prototype instanceof Object);//true
+    console.log(Object.prototype instanceof Object);//false
+    console.log(Function.prototype instanceof Object);//true
+
+    /**
+     * 2.所有函数都是Function的实例（包括Function）
+     */
+    console.log(Function.prototype === Function.__proto__);//true
+
+    /**
+     * 3.Object的原型对象是原型链的尽头
+     */
+    console.log(Object.prototype.__proto__);//null
 </script>
 </body>
 </html>
