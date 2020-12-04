@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>04_作用域_面试题2</title>
+    <meta charset="UTF-8">
+    <title>04_作用域_面试题2</title>
 </head>
 <body>
 <script type="text/javascript">
+    var fn = function () {
+        console.log(fn)
+    };
+    //找得到，打印函数内容
+    fn();
 
+    var obj = {
+        fn2: function () {
+            //报错，Uncaught ReferenceError: fn2 is not defined
+            //在当前函数作用域中找fn2没有找到，去全局作用域也没找到
+            console.log(fn2);
+            //如果想找到当前对象的fn2，要加this
+            console.log(this.fn2)
+        }
+    };
+    obj.fn2();
 </script>
 </body>
 </html>
