@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>03_原型链</title>
+    <meta charset="UTF-8">
+    <title>03_原型链</title>
 </head>
 <body>
 <!--
@@ -17,6 +17,27 @@
 3. 构造函数/原型/实体对象的关系2(图解)
 -->
 <script type="text/javascript">
+    console.log(Object.prototype);
+    console.log(Object.prototype.__proto__);//null
+
+    function Fn() {
+        this.test1 = function () {
+            console.log('test1()');
+        }
+    }
+
+    console.log(Fn.prototype);
+
+    //在原型上添加方法
+    Fn.prototype.test2 = function () {
+        console.log('test2()');
+    };
+    var fn = new Fn();
+    fn.test1();
+    fn.test2();
+    console.log(fn.toString());
+    console.log(fn.test3);//undefined
+    fn.test3();//Uncaught TypeError: fn.test3 is not a function
 </script>
 </body>
 </html>
