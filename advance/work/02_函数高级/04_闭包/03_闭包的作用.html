@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>03_闭包的作用</title>
-
+    <meta charset="UTF-8">
+    <title>03_闭包的作用</title>
 </head>
 <body>
 <!--
@@ -11,11 +10,45 @@
 2. 让函数外部可以操作(读写)到函数内部的数据(变量/函数)
 
 问题:
-  1. 函数执行完后, 函数内部声明的局部变量是否还存在?
-  2. 在函数外部能直接访问函数内部的局部变量吗?
+  1. 函数执行完后, 函数内部声明的局部变量是否还存在?（一般是不存在了，存在于闭包中的变量才可能存在）
+  2. 在函数外部能直接访问函数内部的局部变量吗?（不能，但是我们可以通过闭包让外部操作它）
 -->
 <script type="text/javascript">
-</script>
+    //1. 将函数作为另一个函数的返回值
+    function fn1() {
+        //定义变量
+        var a = 2;
 
+        function fn2() {
+            //内部函数要引用外部函数变量
+            a++;
+            console.log(a);
+        }
+
+        function fn3() {
+            a--;
+            console.log(a);
+        }
+
+        //将内部函数对象返回
+        return fn3;
+    }
+
+    //调用函数，获取返回的函数对象
+    var f = fn1();
+    f();//1
+    f();//0
+    var f2 = fn1();
+    f2();//1
+
+    //2. 将函数作为实参传递给另一个函数调用
+    function showDelay(msg, time) {
+        setTimeout(function () {
+            alert(msg);
+        }, time)
+    }
+
+    showDelay('atguigu', 2000);
+</script>
 </body>
 </html>
