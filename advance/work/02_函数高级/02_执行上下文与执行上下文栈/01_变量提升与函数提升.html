@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>01_变量提升与函数提升</title>
+    <meta charset="UTF-8">
+    <title>01_变量提升与函数提升</title>
 </head>
 <body>
 <!--
@@ -15,7 +15,41 @@
 3. 问题: 变量提升和函数提升是如何产生的?
 -->
 <script type="text/javascript">
+    console.log('--------------');
 
+    /**
+     * 面试题：输出 undefined
+     */
+    var a = 3;
+
+    function fn(a) {
+        //下面的var a;会变量提升到这句输出语句之上，这时a的值为undefined，实际运行会相当于下面这样
+        // var a;
+        // console.log(a);
+        // a = 4;
+        //为什么没有找到外层作用于的a=3，因为函数内查找变量是先从自己的作用域先找
+        //此时因为变量提升，查找到的是var a，找到了函数作用域的a
+
+        console.log(a);
+        var a = 4;
+    }
+
+    fn();
+
+    console.log(b);//undefined 因为有变量提升
+    var b = 3;
+
+    fn2();//可以调用 因为有函数提升
+    //fn3();//不能，此时是变量提升，fn3为undefined，undefined()不能调用
+
+    function fn2() {
+        console.log('fn2()');
+    }
+
+    //声明的函数是一个表达式的形式，此时不是函数提升，而是变量提升，不能提前调用
+    var fn3 = function () {
+        console.log('fn3()');
+    }
 </script>
 </body>
 </html>
