@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>04_原型链_属性问题</title>
+    <meta charset="UTF-8">
+    <title>04_原型链_属性问题</title>
 </head>
 <body>
 <!--
@@ -11,7 +11,45 @@
 3. 方法一般定义在原型中, 属性一般通过构造函数定义在对象本身上
 -->
 <script type="text/javascript">
+    function Fn() {
+    }
 
+    //给原型设置一个属性
+    Fn.prototype.a = 'xxx';
+    var fn1 = new Fn();
+    //fn1.a，查找属性时，会先查找实例本身是否有属性值，再找原型链
+    console.log(fn1.a, fn1);
+
+    var fn2 = new Fn();
+    //但是修改不会找原型链，先找实例本身是否有属性定义，没有则添加一个，所以这样是修改不了原型上的属性的
+    fn2.a = 'yyy';
+    console.log(fn1.a, fn2.a, fn2);
+
+    //一般属性会放在构造方法上
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    //而方法一般会放在原型上
+    Person.prototype.setName = function (name) {
+        this.name = name;
+    };
+    var p1 = new Person('Tom', 12);
+    p1.setName('Bob');
+    console.log(p1);
+    console.log(p1.name, p1.age);
+
+    var p2 = new Person('Jack', 12);
+    p2.setName('Cat');
+    console.log(p2);
+    console.log(p2.name, p2.age);
+
+    //实例的原型对象都是一个
+    console.log(p1.__proto__ === p2.__proto__);
+    //实例的隐式原型，等于构造方法的显示原型
+    console.log(p1.__proto__ === Person.prototype);
+    console.log(p2.__proto__ === Person.prototype);
 </script>
 </body>
 </html>
