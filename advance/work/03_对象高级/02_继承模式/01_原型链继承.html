@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>01_原型链继承</title>
+    <meta charset="UTF-8">
+    <title>01_原型链继承</title>
 </head>
 <body>
 <!--
@@ -19,7 +19,47 @@
     1. 子类型的原型为父类型的一个实例对象
 -->
 <script type="text/javascript">
+    //定义父类型
+    function Supper() {
+        this.supProp = 'Supper property';
+    }
 
+    Supper.prototype.showSuperProp = function () {
+        console.log(this.supProp);
+    };
+
+    //定义子类型
+    function Sub() {
+        this.subProp = 'Sub property';
+    }
+
+    //重点（1）：实现继承，创建一个父类型实例，将子类的原型设置给这个实例
+    //注意一定要在定义子类原型方法之前调用，否则会被覆盖掉
+    Sub.prototype = new Supper();
+    //重点（2）：将子类原型的构造器，改为Sub，否则子类原型的构造器是Supper
+    Sub.prototype.constructor = Sub;
+
+    //定义子类原型方法，相当于将这个方法设置到了父类对象上，而普通的父类实例，是没有这个子类方法的
+    Sub.prototype.showSubProp = function () {
+        console.log(this.subProp);
+    };
+
+    //创建子类实例
+    var sub = new Sub();
+    //调用父类方法
+    sub.showSuperProp();
+    //能调用toString()，是以为toString()在Object原型上定义的
+    //Supper实例调用方法，先从自身找，找不到则去原型上找，而Supper的原型是Object的实例，先从Object实例中找，找不到再去Object的原型中找
+    //而toString()方法是放在Object的原型上的，所以可以赵傲
+    //Supper.prototype = {};//Suuper类的原型，相当于这样赋值
+    sub.toString();
+    //子类也可以调用自己的原型上的方法
+    sub.showSubProp();
+
+    //如果没有做第二步，没有将Sub原型的constructor设置为Sub
+    //那么子类的构造方法，就变成了Supper，因为constructor属性是在Sub原型上的，现在被替换成了Supper实例，自然找到了Supper构造方法对象
+    //所以一定要将第二步加上！
+    console.log(sub.constructor);
 </script>
 </body>
 </html>
