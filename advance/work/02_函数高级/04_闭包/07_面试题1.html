@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>07_面试题1</title>
+    <meta charset="UTF-8">
+    <title>07_面试题1</title>
 </head>
 <body>
-
 <script type="text/javascript">
+    //代码片段一
+    var name = "The Window";
+    var object = {
+        name: "My Object",
+        getNameFunc: function () {
+            return function () {
+                return this.name;
+            };
+        }
+    };
+    //object.getNameFunc()，返回一个内部函数
+    //object.getNameFunc()()，在window上直接执行内部函数。this就是window
+    alert(object.getNameFunc()());//The Window
+    //如果想输出object中的name，则使用call或者apply，执行this是object即可
+    //alert(object.getNameFunc().call(object));//My Object
 
+    //代码片段二
+    var name2 = "The Window";
+    var object2 = {
+        name2: "My Object",
+        getNameFunc: function () {
+          //在这里保存一个this的变量that，this指向的就是object2，内部函数调用that.name，这时调用的就是object2的name属性
+            var that = this;
+            return function () {
+                return that.name2;
+            };
+        }
+    };
+    alert(object2.getNameFunc()()); //?  my object
 </script>
 </body>
 </html>
