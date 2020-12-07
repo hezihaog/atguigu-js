@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>03_组合继承</title>
+    <meta charset="UTF-8">
+    <title>03_组合继承</title>
 </head>
 <body>
 <!--
@@ -11,7 +11,45 @@
 2. 利用call()借用父类型构建函数初始化相同属性
 -->
 <script type="text/javascript">
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
 
+    //父类方法设置到原型上
+    Person.prototype.setName = function (name) {
+        this.name = name;
+    };
+
+    function Student(name, age, price) {
+        //重点（1）：通过call()，获得父类的属性
+        //相当于：this.Person(name, age);
+        Person.call(this, name, age);
+        //也相当于，调用了以下2句
+        //this.name = name;
+        //this.age = age;
+        //再将子类特殊属性设置
+        this.price = price;
+    }
+
+    //生成继承关系
+    //1.将子类型的原型设置为父类型的实例，而且不需要传参数，因为参数在子类型的构造方法中，使用call()调用父类构造函数补齐了
+    //重点（2）：这里是将原型绑定后，可以拿到父类的方法
+    Student.prototype = new Person();
+    //将子类型的构造方法修正（否则原型是父类型的实例，这个实例的constructor是Person）
+    Student.prototype.constructor = Student;
+
+    //子类方法设置到原型上
+    Student.prototype.setPrice = function (price) {
+        this.price = price;
+    };
+
+    //测试
+    var s = new Student('Tom', 24, 15000);
+    s.setName('Bob');
+    s.setPrice(16000);
+    //Bob 24 16000
+    console.log(s.name, s.age, s.price);
 </script>
 </body>
 </html>
