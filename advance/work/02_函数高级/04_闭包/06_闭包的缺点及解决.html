@@ -14,6 +14,21 @@
   * 及时释放
 -->
 <script type="text/javascript">
+  function fn1() {
+    //创建一个容量很大的数组
+    var arr = new Array(100000);
+    function fn2() {
+      //内部函数引用这个数组
+      console.log(arr);
+    }
+    //外部函数最后返回内部函数对象
+    return fn2;
+  }
+  var f = fn1();
+  f();
+  //如果不将闭包销毁，Array就会一直存在，引起内存泄漏
+  //让内部函数成为垃圾对象，从而让闭包回收
+  f = null;
 </script>
 </body>
 </html>
