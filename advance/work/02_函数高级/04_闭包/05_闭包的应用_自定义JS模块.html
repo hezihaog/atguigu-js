@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>05_闭包的应用_自定义JS模块</title>
+    <meta charset="UTF-8">
+    <title>05_闭包的应用_自定义JS模块</title>
 </head>
 <body>
 <!--
@@ -12,5 +12,11 @@
   * 只向外暴露一个包信n个方法的对象或函数
   * 模块的使用者, 只需要通过模块暴露的对象调用方法来实现对应的功能
 -->
+<script src="myModule.js"></script>
+<script>
+    var module = myModule();
+    module.doSomething();
+    module.doOtherthing();
+</script>
 </body>
 </html>
