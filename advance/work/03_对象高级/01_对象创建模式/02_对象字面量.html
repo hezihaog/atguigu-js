@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>02_对象字面量</title>
+    <meta charset="UTF-8">
+    <title>02_对象字面量</title>
 </head>
 <body>
 <!--
@@ -12,6 +12,26 @@
   * 问题: 如果创建多个对象, 有重复代码
 -->
 <script type="text/javascript">
+    //适合一开始就知道对象的属性和方法的情况，而且适合创建少量对象
+    var p = {
+        name: 'Tom',
+        age: 12,
+        setName: function (name) {
+            this.name = name;
+        }
+    };
+    //测试
+    console.log(p.name, p.age);
+    p.setName('Jack');
+    console.log(p.name, p.age);
+
+    var p2 = {//如果创建多个对象，会有重复代码
+        name: 'Bob',
+        age: 13,
+        setName: function (name) {
+            this.name = name;
+        }
+    };
 </script>
 </body>
 </html>

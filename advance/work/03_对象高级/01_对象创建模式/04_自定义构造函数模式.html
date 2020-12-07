@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>04_自定义构造函数模式</title>
+    <meta charset="UTF-8">
+    <title>04_自定义构造函数模式</title>
 </head>
 
 <body>
@@ -13,7 +13,39 @@
   * 问题: 每个对象都有相同的数据, 浪费内存
 -->
 <script type="text/javascript">
+    //定义类型
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.setName = function (name) {
+            this.name = name;
+        }
+    }
 
+    var p1 = new Person('Tom', 12);
+    var p2 = new Person('Jack', 12);
+    console.log(p1, p2);
+    console.log(p1.name, p1.age);
+    console.log(p2.name, p2.age);
+    //false，构造方法创建出来的对象的方法虽然内容一样，但是对象中是2份对象，所以它们的内存地址不同，浪费内存
+    console.log(p1.setName === p2.setName);
+    //true，2个对象的原型对象是一样的，所以将方法放到原型对象中共用即可解决内存浪费的问题
+    console.log(p1.__proto__ === p2.__proto__);
+    //true
+    console.log(p1 instanceof Person);
+
+    console.log('----------------------');
+
+    function Student(name, price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    var s = new Student('Bob', 13000);
+    console.log(s);
+    console.log(s.name, s.price);
+    //false，Person和Student已经有类型了，instanceof判断出他们不是同一个类型
+    console.log(s instanceof Person);
 </script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>05_构造函数+原型的组合模式</title>
+    <meta charset="UTF-8">
+    <title>05_构造函数+原型的组合模式</title>
 </head>
 <body>
 <!--
@@ -11,7 +11,22 @@
   * 适用场景: 需要创建多个类型确定的对象
 -->
 <script type="text/javascript">
+    //在构造函数中，初始化一些对象属性
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
 
+    //将方法放在原型对象中
+    Person.prototype.setName = function (name) {
+        this.name = name;
+    };
+
+    var p1 = new Person('Tom', 12);
+    var p2 = new Person('Jack', 13);
+    console.log(p1, p2);
+    //对象的原型是同一个，所以他们的方法是同一个对象，解决对象中方法各有一份，浪费内存的问题
+    console.log(p1.setName === p2.setName);
 </script>
 </body>
 </html>
